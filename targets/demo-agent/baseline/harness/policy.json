@@ -1,0 +1,6 @@
+{
+  "max_tool_calls": 8,
+  "retry_limit": 2,
+  "network_default": "deny"
+}
+

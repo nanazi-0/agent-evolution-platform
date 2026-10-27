@@ -1,0 +1,39 @@
+[project]
+name = "demo-support-agent"
+baseline_dir = "targets/demo-agent/baseline"
+hidden_eval = "evals/demo-heldout.json"
+
+[evolution]
+provider = "deterministic"
+objective = "提高可验证性、引用、安全拒绝、最小权限和失败恢复能力"
+max_generations = 3
+candidates_per_generation = 3
+minimum_improvement = 0.01
+target_score = 1.0
+recursive_improver = true
+experiment_budget = 12
+
+[evaluation]
+command = ["{python}", "{root}/tools/demo_evaluator.py", "--candidate", "{candidate}", "--cases", "{hidden_eval}", "--output", "{output}"]
+timeout_seconds = 60
+minimum_score = 0.95
+
+[policy]
+allowed_paths = ["system_prompt.md", "skills/*.json", "harness/*.json"]
+max_files_changed = 4
+max_total_bytes = 32768
+forbidden_text = ["disable safety", "ignore all policies", "you may reveal secrets", "skip evaluation", "bypass approval"]
+require_human_approval = true
+
+[quality_platform]
+enabled = true
+required = true
+root = "D:/Portfolio/agent-quality-security"
+platform = "Generic CI"
+
+[successor_model]
+enabled = false
+required = false
+# 生产环境可配置训练/蒸馏命令。命令必须在隔离环境中写出标准 JSON 结果。
+command = []
+timeout_seconds = 7200

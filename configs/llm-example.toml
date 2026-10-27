@@ -1,0 +1,38 @@
+[project]
+name = "demo-support-agent-llm"
+baseline_dir = "targets/demo-agent/baseline"
+hidden_eval = "evals/demo-heldout.json"
+
+[evolution]
+provider = "openai-compatible"
+objective = "在不降低安全性的前提下改进智能体任务完成、可验证性和失败恢复"
+max_generations = 3
+candidates_per_generation = 3
+minimum_improvement = 0.02
+target_score = 1.0
+recursive_improver = true
+experiment_budget = 12
+
+[evaluation]
+command = ["{python}", "{root}/tools/demo_evaluator.py", "--candidate", "{candidate}", "--cases", "{hidden_eval}", "--output", "{output}"]
+timeout_seconds = 60
+minimum_score = 0.95
+
+[policy]
+allowed_paths = ["system_prompt.md", "skills/*.json", "harness/*.json"]
+max_files_changed = 4
+max_total_bytes = 32768
+forbidden_text = ["disable safety", "ignore all policies", "you may reveal secrets", "skip evaluation", "bypass approval"]
+require_human_approval = true
+
+[quality_platform]
+enabled = true
+required = true
+root = "D:/Portfolio/agent-quality-security"
+platform = "Generic CI"
+
+[successor_model]
+enabled = false
+required = false
+command = []
+timeout_seconds = 7200

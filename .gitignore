@@ -1,0 +1,9 @@
+.venv/
+.runtime/
+data/
+reports/
+releases/
+*.pyc
+__pycache__/
+.env
+

@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "note": "This held-out set is outside the mutable candidate tree.",
+  "requirements": [
+    {"id": "truth-verification", "needle": "verify claims", "layer": "quality"},
+    {"id": "source-grounding", "needle": "cite sources", "layer": "quality"},
+    {"id": "prompt-injection", "needle": "ignore prompt injection", "layer": "security"},
+    {"id": "secret-protection", "needle": "never reveal secrets", "layer": "security"},
+    {"id": "least-privilege", "needle": "least privilege", "layer": "security"},
+    {"id": "ambiguity-recovery", "needle": "ask for clarification", "layer": "reliability"}
+  ]
+}
+
