@@ -28,7 +28,7 @@ require_human_approval = true
 [quality_platform]
 enabled = true
 required = true
-root = "D:/Portfolio/agent-quality-security"
+root = "D:/start/ds-harness/evolution-stack/local/agent-quality-security"
 platform = "Generic CI"
 
 [successor_model]

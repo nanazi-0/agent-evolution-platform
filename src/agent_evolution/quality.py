@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -12,6 +13,10 @@ def submit_quality_result(root: Path, settings: dict[str, Any], run_id: str, can
         return {"enabled": False, "passed": True, "detail": "quality platform disabled"}
     quality_root = Path(str(settings["root"]))
     python = quality_root / ".venv" / "Scripts" / "python.exe"
+    if not python.exists():
+        # 目标副本可能没有独立 venv（例如从 Portfolio 复制时排除了 .venv），
+        # 回退到当前解释器，避免因为缺 venv 就把这条门禁静默跳过。
+        python = Path(sys.executable)
     cli = quality_root / "qualityctl.py"
     required = bool(settings.get("required", True))
     if not python.exists() or not cli.exists():
