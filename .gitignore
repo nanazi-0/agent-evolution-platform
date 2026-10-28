@@ -7,3 +7,7 @@ releases/
 __pycache__/
 .env
 
+
+# 运行产物（候选/发布/提案），不进版本库
+targets/*/releases/
+targets/*/current.json
